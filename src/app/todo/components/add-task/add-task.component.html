@@ -1,0 +1,20 @@
+<form (ngSubmit)="emitTask()">
+    <div class="input-group">
+        <input 
+            type="text"
+            name="description"
+            [(ngModel)]="task.description"
+            #description="ngModel"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': description.invalid && (description.dirty || description.touched) }"
+            [ngClass]="{ 'is-valid': description.valid }"
+            placeholder="Tarea a realizar"
+            required
+            minlength="3">
+        <button type="submit" class="btn btn-primary" [disabled]="description.invalid">Agregar</button>
+    </div>
+    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="errors">
+        <span *ngIf="description.errors?.['required']">La tearea es requerida</span>
+        <span *ngIf="description.errors?.['minlength']">La tearea debe tener al menos 3 caracteres</span>
+    </div>
+</form>
