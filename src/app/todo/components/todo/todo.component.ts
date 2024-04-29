@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { Task } from '../../interfaces/task.interface';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'todo-root',
@@ -8,42 +9,23 @@ import { Task } from '../../interfaces/task.interface';
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
-  public tasks: Array<Task>/*Task[]*/ = [
-    {
-      description: 'Inicializar aplicación TODO',
-      isCompleted: true,
-    },
-    {
-      description: 'Crear modulo Todo',
-      isCompleted: false,
-    },
-    {
-      description: 'Actualizamos modulo App',
-      isCompleted: false,
-    },
-    {
-      description: 'Creamos primer componente',
-      isCompleted: false,
-    },
-    {
-      description: 'Crear componentes para lista y formulario',
-      isCompleted: false,
-    },
-    {
-      description: 'Finalizar aplicación',
-      isCompleted: false,
-    },
-  ];
+
+  //constructor(private tasksService: TasksService) {}
+  private tasksService = inject(TasksService);
+
+  get tasks(): Array<Task> {
+    return this.tasksService.tasks;
+  }
 
   public onDeleteTask(index: number): void {
-    this.tasks.splice(index, 1);
+    this.tasksService.deleteTask(index);
   }
 
   public onCompleteTask(index: number): void {
-    this.tasks[index].isCompleted = !this.tasks[index].isCompleted;
+    this.tasksService.completeTask(index);
   }
 
   public onNewTask(task: Task): void {
-    this.tasks.push(task);
+    this.tasksService.addTask(task);
   }
 }
