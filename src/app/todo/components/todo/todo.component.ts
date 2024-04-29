@@ -17,12 +17,12 @@ export class TodoComponent {
     return this.tasksService.tasks;
   }
 
-  public onDeleteTask(index: number): void {
-    this.tasksService.deleteTask(index);
+  public onDeleteTask(id: string): void {
+    this.tasksService.deleteTask(id);
   }
 
-  public onCompleteTask(index: number): void {
-    this.tasksService.completeTask(index);
+  public onCompleteTask(id: string): void {
+    this.tasksService.completeTask(id);
   }
 
   public onNewTask(task: Task): void {
